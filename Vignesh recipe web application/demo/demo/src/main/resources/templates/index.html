@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div>
+		<div align="center">
+			<h2>Available recipe</h2>
+		</div>
+		<tr>
+			<div align="right">
+				<h3><a th:href="@{'/new'}">Add new recipe</a></h3>
+			</div>
+		</tr>
+		<tr>
+			<div class="col-sm-12" align="center">
+				<div class="panel-body" align="center">
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th>Sl. No</th>
+								<th>Date & Time</th>
+								<th>Dish Type</th>
+								<th>Suitable for</th>
+								<th>Ingredients</th>
+								<th>Cooking Instructions</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="recipetable : ${listrecipe }">
+								<td th:text="${recipetable.id}">Sl. No</td>
+								<td th:text="${recipetable.Date_Time}">Date Time</td>
+								<td th:text="${recipetable.Dish_Type}">Dish Type</td>
+								<td th:text="${recipetable.Suitable_for}">Suitable for</td>
+								<td th:text="${recipetable.Ingredients}">Ingredients</td>
+								<td th:text="${recipetable.Cooking_Instructions}">Cooking Instructions</td>
+								<td>
+									<a th:href="@{'/edit/' + ${recipetable.id}}">Edit</a>
+								</td>
+								<td>
+									<a th:href="@{'/delete/' + ${recipetable.id}}">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</tr>
+		</tbody>
+		</table>
+		<div>
+</body>
+
+</html>

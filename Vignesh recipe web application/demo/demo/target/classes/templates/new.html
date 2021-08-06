@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Add New Recipe</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css'>
+	<style>
+	label{
+font-family: "Agency FB";
+font-weight:bold;
+padding-top:3px;
+color: black;
+font-size:15px;
+align-items: left;
+}
+
+	</style>
+</head>
+
+<body>
+	<div align="center">
+		<h2>New Recipe</h2>
+		<br />
+		
+		<div class="col-sm-5">
+		
+			<form action="#" th:action="@{/save}" th:object="${recipetable}" method="post">
+
+
+				<div alight="right">
+					<tr>
+						<label class="form-label">Current Date & Time</label>
+						<td>
+							<input id="currentDateTime" type="text" th:field="*{Date_Time}" class="form-control" />
+						</td>
+					</tr>
+					
+					<tr>
+						<label class="form-label">Dish Type</label>
+						<td>
+							<input type="hidden" th:field="*{id}" />
+							<input type="text" th:field="*{Dish_Type}" class="form-control" placeholder="Type of dish" />
+						</td>
+					</tr>
+
+					<tr>
+						<label class="form-label">Suitable for</label>
+						<td>
+							<input type="text" th:field="*{Suitable_for}" class="form-control" placeholder="Suitable for" />
+						</td>
+					</tr>
+					
+					<tr>
+						<label class="form-label">Ingredients</label>
+						<td>
+							<select multiple class="select_all" th:field="*{Ingredients}">
+								<option value="" disabled selected>Select Ingredients</option>
+								<option value="Sugar">Sugar</option>
+								<option value="Salt">Salt</option>
+								<option value="Milk">Milk</option>
+								<option value="Whipping cream">Whipping cream</option>
+								<option value="Choco chips">Choco chips</option>
+								<option value="butter">butter</option>
+								<option value="Baking powder">Baking powder</option>
+								<option value="Dhal">Dhal</option>
+								<option value="Coffee powder">Coffee powder</option>
+								<option value="Egg">Egg</option>
+								<option value="Ice cream">Ice cream</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+					<br>
+						<label class="form-label">Cooking Instructions</label>
+						<td>
+							<input type="text" th:field="*{Cooking_Instructions}" class="form-control"
+								placeholder="Cooking instructions" />
+						</td>
+					</tr>
+				</div>
+
+				<div align="right">
+				<h6><a th:href="@{'/'}">Recipe list</a></h6>
+			</div>
+				<tr>
+					<td colspan="2"><button type="submit" class="btn btn-info">Add to menu</button> </td>
+				
+				</tr>
+				
+				</table>
+			</form>
+		</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js'></script>
+		<script>
+
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0');
+			var yyyy = today.getFullYear();
+			var time = String(today.getHours() + 0).padStart(2, '0') + ":" + String(today.getMinutes() + 0).padStart(2, '0');
+			today = dd + '-' + mm + '-' + yyyy + ' ' + time;
+			document.getElementById("currentDateTime").value = today;
+
+			$(document).ready(function () {
+				// $('select').val([1]);
+				$('select').formSelect();
+				$('select.select_all').siblings('ul').prepend('<li id=sm_select_all><span>Select All</span></li>');
+				$('li#sm_select_all').on('click', function () {
+					var jq_elem = $(this),
+						jq_elem_span = jq_elem.find('span'),
+						select_all = jq_elem_span.text() == 'Select All',
+						set_text = select_all ? 'Select None' : 'Select All';
+					jq_elem_span.text(set_text);
+					jq_elem.siblings('li').filter(function () {
+						return $(this).find('input').prop('checked') != select_all;
+					}).click();
+				});
+			})
+
+
+		</script>
+</body>
+
+</html>
